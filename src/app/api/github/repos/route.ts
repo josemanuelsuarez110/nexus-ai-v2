@@ -12,12 +12,10 @@ export async function GET() {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github+json',
       },
-      next: { revalidate: 60 }, // Cache de 60 segundos
+      next: { revalidate: 60 },
     });
 
-    if (!res.ok) {
-      throw new Error(`GitHub API respondió con ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`GitHub API respondió con ${res.status}`);
 
     const data = await res.json();
     const projects = data.map((repo: any) => ({
