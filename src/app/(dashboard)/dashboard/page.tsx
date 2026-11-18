@@ -10,10 +10,13 @@ export default function FintechDashboard() {
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
   const [transactions, setTransactions] = useState<any[]>([]);
-  const supabase = createClient();
 
   useEffect(() => {
     async function fetchData() {
+      // Inicializamos el cliente AQUÍ, que solo corre en el navegador
+      const supabase = createClient();
+      if (!supabase) return;
+
       const { data: accounts } = await supabase.from('accounts').select('*');
       if (accounts) {
         const totalBalance = accounts.reduce((acc, curr) => acc + Number(curr.balance), 0);
@@ -40,7 +43,7 @@ export default function FintechDashboard() {
       setLoading(false);
     }
     fetchData();
-  }, [supabase]);
+  }, []);
 
   if (loading) {
     return (
