@@ -19,7 +19,7 @@ export default function FintechDashboard() {
 
       const { data: accounts } = await supabase.from('accounts').select('*');
       if (accounts) {
-        const totalBalance = accounts.reduce((acc, curr) => acc + Number(curr.balance), 0);
+        const totalBalance = accounts.reduce((acc: number, curr: any) => acc + Number(curr.balance), 0);
         setBalance(totalBalance);
       }
 
@@ -33,7 +33,7 @@ export default function FintechDashboard() {
         setTransactions(tx);
         let inc = 0;
         let exp = 0;
-        tx.forEach((t) => {
+        tx.forEach((t: any) => {
           if (t.amount > 0) inc += Number(t.amount);
           else exp += Math.abs(Number(t.amount));
         });
