@@ -13,12 +13,12 @@ export default function FintechDashboard() {
 
   useEffect(() => {
     async function fetchData() {
-      // Inicializamos el cliente AQUÍ, que solo corre en el navegador
       const supabase = createClient();
       if (!supabase) return;
 
       const { data: accounts } = await supabase.from('accounts').select('*');
       if (accounts) {
+        // AÑADIDOS LOS TIPOS : number y : any
         const totalBalance = accounts.reduce((acc: number, curr: any) => acc + Number(curr.balance), 0);
         setBalance(totalBalance);
       }
@@ -33,6 +33,7 @@ export default function FintechDashboard() {
         setTransactions(tx);
         let inc = 0;
         let exp = 0;
+        // AÑADIDO EL TIPO : any
         tx.forEach((t: any) => {
           if (t.amount > 0) inc += Number(t.amount);
           else exp += Math.abs(Number(t.amount));
