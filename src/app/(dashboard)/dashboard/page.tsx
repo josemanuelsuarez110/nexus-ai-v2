@@ -20,7 +20,6 @@ export default function FintechDashboard() {
       if (accounts) {
         // AÑADIDOS LOS TIPOS : number y : any
         const totalBalance = accounts.reduce((acc: number, curr: any) => acc + Number(curr.balance), 0);
-        setBalance(totalBalance);
       }
 
       const { data: tx } = await supabase
